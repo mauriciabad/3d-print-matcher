@@ -11,5 +11,58 @@ export default defineComponent({
 </script>
 
 <template>
-  <div>test</div>
+  <div class="container">
+    <h1 class="container__title">Benvingut/da!</h1>
+
+    <div class="container__explanation">
+      <h3>Com usar la app?</h3>
+      <p>
+        Utilitza el botó afegir imatge d'una peça 3D per trobar una similitud
+        amb la resta de peçes!
+      </p>
+    </div>
+
+    <button class="container__button">Afegir imatge</button>
+  </div>
 </template>
+
+<style lang="scss">
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 50px 0;
+
+  &__title {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &__explanation {
+    padding: 50px 10px;
+  }
+
+  &__button {
+    padding: 15px;
+    width: 50%;
+    font-size: 20px;
+    color: white;
+    border-radius: 15px;
+    background: #2c3e50;
+    border: 1px solid transparent;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 4px 4px #0000008c;
+      color: black;
+      border: 1px solid #2c3e50;
+      background: transparent;
+    }
+
+    @media (max-width: 900px) {
+      width: 100%;
+    }
+  }
+}
+</style>
