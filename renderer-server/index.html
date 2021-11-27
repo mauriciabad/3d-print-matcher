@@ -61,30 +61,17 @@
         )
         camera.position.set(3, 0.15, 3)
 
-        const cameraTarget = new THREE.Vector3(0, -0.25, 0)
+        const cameraTarget = new THREE.Vector3(0, 0, 0)
         camera.lookAt(cameraTarget)
 
         scene = new THREE.Scene()
-        scene.background = new THREE.Color(0x72645b)
-        scene.fog = new THREE.Fog(0x72645b, 2, 15)
-
-        // Ground
-
-        const plane = new THREE.Mesh(
-          new THREE.PlaneGeometry(40, 40),
-          new THREE.MeshPhongMaterial({ color: 0x999999, specular: 0x101010 })
-        )
-        plane.rotation.x = -Math.PI / 2
-        plane.position.y = -0.5
-        scene.add(plane)
-
-        plane.receiveShadow = true
+        scene.background = new THREE.Color(0xffffff)
 
         const loader = new STLLoader()
 
         loader.load(
           'https://threejs.org/examples/models/stl/ascii/slotted_disk.stl',
-          function (geometry) {
+          (geometry) => {
             const material = new THREE.MeshPhongMaterial({
               color: 0xff5533,
               specular: 0x111111,
@@ -94,30 +81,28 @@
 
             mesh.position.set(0, 0, 0)
             mesh.rotation.set(0, 0, 0)
-            mesh.scale.set(0.5, 0.5, 0.5)
+            mesh.scale.set(1, 1, 1)
 
             mesh.castShadow = true
             mesh.receiveShadow = true
 
             scene.add(mesh)
+            // scene.add(new THREE.BoxHelper(mesh, 0x000000))
 
             render()
           }
         )
 
         // Lights
-
         scene.add(new THREE.HemisphereLight(0x443333, 0x111122))
-
         addShadowedLight(1, 1, 1, 0xffffff, 1.35)
-        addShadowedLight(0.5, 1, -1, 0xffaa00, 1)
-        // renderer
+        addShadowedLight(0.5, 1, -1, 0xffffff, 0.5)
 
+        // renderer
         renderer = new THREE.WebGLRenderer({ antialias: true })
         renderer.setPixelRatio(window.devicePixelRatio)
         renderer.setSize(window.innerWidth, window.innerHeight)
         renderer.outputEncoding = THREE.sRGBEncoding
-
         renderer.shadowMap.enabled = true
 
         container.appendChild(renderer.domElement)
