@@ -1,1 +1,5 @@
-console.log('Hello World')
+console.log('Start')
+
+import './render'
+
+console.log('Done')
