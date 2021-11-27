@@ -1,18 +1,25 @@
-<template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <SubmitForm />
-  </div>
-</template>
-
 <script lang="ts">
-import { defineComponent } from "vue";
-import SubmitForm from "@/components/SubmitForm.vue";
+import { defineComponent } from 'vue'
+import UploadImage from '@/components/home/UploadImage.vue'
 
 export default defineComponent({
-  name: "Home",
   components: {
-    SubmitForm,
+    UploadImage,
   },
-});
+
+  setup() {
+    function handleSelectImage(image: File) {
+      console.log(image)
+    }
+    return {
+      handleSelectImage,
+    }
+  },
+})
 </script>
+
+<template>
+  <div class="home">
+    <UploadImage @select="handleSelectImage" />
+  </div>
+</template>
