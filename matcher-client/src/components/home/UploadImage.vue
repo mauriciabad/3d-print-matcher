@@ -22,7 +22,9 @@ export default defineComponent({
       </p>
     </div>
 
-    <button class="container__button">Afegir imatge</button>
+    <router-link to="/result" class="container__button">
+      Afegir imatge
+    </router-link>
   </div>
 </template>
 
@@ -44,6 +46,7 @@ export default defineComponent({
   }
 
   &__button {
+    text-decoration: none;
     padding: 15px;
     width: 50%;
     font-size: 20px;
@@ -58,6 +61,14 @@ export default defineComponent({
       color: black;
       border: 1px solid #2c3e50;
       background: transparent;
+
+      &:visited {
+        color: black;
+      }
+    }
+
+    &:visited {
+      color: white;
     }
 
     @media (max-width: 900px) {
