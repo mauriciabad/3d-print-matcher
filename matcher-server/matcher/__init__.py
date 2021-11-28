@@ -6,6 +6,7 @@ from flask.json import jsonify
 from werkzeug.utils import secure_filename
 
 from matcher.database import init_app, query_db
+from background.main import process
 
 app = Flask(__name__)
 app.config.from_object("matcher.config.Config")
@@ -32,12 +33,12 @@ def create_print():
 
     if file and allowed_file(file.filename):
         filename = f"{secure_filename(str(uuid.uuid4()))}.{get_ext(file.filename)}"
-        file.save(os.path.join(app.config["PHOTO_UPLOAD_FOLDER"], filename))
+        file_path = os.path.join(app.config["PHOTO_UPLOAD_FOLDER"], filename)
+        file.save(file_path)
 
         # TODO: Crop photo
-        cropped_filename = filename
-
-        file.save(os.path.join(app.config["CROPPED_UPLOAD_FOLDER"], cropped_filename))
+        cropped_file_path = os.path.join(app.config["CROPPED_UPLOAD_FOLDER"], filename)
+        process(str(file_path), str(cropped_file_path))
 
         # query_db(f"INSERT INTO {app.config['PRINT_TABLE']} (picture_path) VALUES(?)", [filename])
         return "Success", 200
