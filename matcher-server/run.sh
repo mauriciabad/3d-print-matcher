@@ -1,9 +1,6 @@
 #!/bin/bash
 
-PHOTOS="./photos"
-CROPPED="./cropped"
-
-FLASK_APP=matcher flask init-db
-rm -rf "$PHOTOS" && mkdir "$PHOTOS"
-rm -rf "$CROPPED" && mkdir "$CROPPED"
-FLASK_APP=matcher flask run
+FLASK_APP=matcher python -m flask init-db
+mkdir -p "$PHOTO_UPLOAD_FOLDER" && rm -rf "$PHOTO_UPlOAD_FOLDER/*"
+mkdir -p "$CROPPED_UPLOAD_FOLDER" && rm -rf "$CROPPED_UPLOAD_FOLDER/*"
+FLASK_APP=matcher python -m gunicorn --timeout $TIMEOUT matcher:app

@@ -1,0 +1,13 @@
+pywebview
+numpy
+tqdm
+torch
+torchvision
+opencv_contrib_python
+scipy
+tensorflow
+gluoncv
+gdown
+scikit_image
+Pillow
+mxnet
