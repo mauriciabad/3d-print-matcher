@@ -9,7 +9,7 @@ export default {
     // })
     return Promise.resolve({
       imageUri: 'https://picsum.photos/600',
-      name: 'monkey',
+      name: `monkey ${Math.random().toFixed(2).slice(2)}`,
       customer: 'Jaimito',
       confidence: 0.95,
     })

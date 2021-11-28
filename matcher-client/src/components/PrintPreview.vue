@@ -26,7 +26,7 @@ export default defineComponent({
     />
     <div class="print__info">
       <h2 class="print__title">{{ value.name }}</h2>
-      <p class="print__description">De {{ value.customer }}</p>
+      <p class="print__description">de {{ value.customer }}</p>
     </div>
   </div>
 </template>
@@ -41,6 +41,16 @@ export default defineComponent({
     background-color: #eee;
     box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
     border: solid 1px #ddd;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+
+  &__description {
+    margin: 0;
   }
 }
 </style>
