@@ -1,3 +1,19 @@
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+function appHeight() {
+  const doc = document.documentElement
+  doc.style.setProperty('--vh', window.innerHeight * 0.01 + 'px')
+}
+
+export default defineComponent({
+  setup() {
+    window.addEventListener('resize', appHeight)
+    appHeight()
+  },
+})
+</script>
+
 <template>
   <router-view />
 </template>
