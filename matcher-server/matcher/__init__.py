@@ -49,7 +49,13 @@ def create_print():
             if isfile(os.path.join(app.config["RENDERS_FOLDER"], f))
         ]
         diffs = [
-            (get_similarity(os.path.join(app.config["RENDERS_FOLDER"], file), cropped_file_path), file) for file in render_files
+            (
+                get_similarity(
+                    os.path.join(app.config["RENDERS_FOLDER"], file), cropped_file_path
+                ),
+                file,
+            )
+            for file in render_files
         ]
         max_dist, _ = max(diffs)
         min_dist, most_sim_render = min(diffs)

@@ -2,6 +2,11 @@
 
 The matcher is used to find a match of an image in the list of `Models` avilable in the [Renderer server](/renderer-server)).
 
+## Usage
+```bash
+make install && make run
+```
+
 ## Entities and types (in typescript)
 
 ### Match
