@@ -2,27 +2,27 @@ export default <Model[]>[
   {
     name: 'pin',
     stlUrl: './assets/models/pin.stl',
-    color: '#8D7BEF',
+    color: '#3919A4',
   },
   {
     name: 'botella',
     stlUrl: './assets/models/botella.stl',
-    color: '#ECDFC6',
+    color: '#F2EAD9',
   },
   {
     name: 'trofeu',
     stlUrl: './assets/models/trofeu.stl',
-    color: '#8D7BEF',
+    color: '#3919A4',
   },
   {
     name: 'caixa',
     stlUrl: './assets/models/caixa.stl',
-    color: '#211F18',
+    color: '#050505',
   },
   {
     name: 'centrador',
     stlUrl: './assets/models/centrador.stl',
-    color: '#211F18',
+    color: '#050500',
   },
   {
     name: 'monkey',
@@ -32,12 +32,12 @@ export default <Model[]>[
   {
     name: 'tub3',
     stlUrl: './assets/models/tub3.stl',
-    color: '#1931CC',
+    color: '#0014AD',
   },
   {
     name: 'turbina',
     stlUrl: './assets/models/turbina.stl',
-    color: '#2AE58D',
+    color: '#149940',
   },
 ]
 
