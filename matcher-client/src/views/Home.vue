@@ -9,14 +9,17 @@ export default defineComponent({
 
   setup() {
     const showError = ref(false)
+    const showLoading = ref(false)
     const print = ref<Print | null>(null)
 
     async function handleImageSelected(event: InputEvent) {
       clearScreen()
+      showLoading.value = true
 
       const image = (event.target as HTMLInputElement).files?.[0]
       if (!image) {
         showError.value = true
+        showLoading.value = false
         return
       }
 
@@ -27,7 +30,9 @@ export default defineComponent({
         print.value = await api.findMatch(formData)
       } catch (error) {
         showError.value = true
+        showLoading.value = false
       }
+      showLoading.value = false
     }
 
     function clearScreen() {
@@ -39,6 +44,7 @@ export default defineComponent({
       handleImageSelected,
       showError,
       print,
+      showLoading,
     }
   },
 })
@@ -59,6 +65,12 @@ export default defineComponent({
       <img src="@/assets/take-a-photo.png" alt="" class="image image--photo" />
     </div>
 
+    <p
+      v-if="showLoading"
+      class="container__explanation container__explanation--loading"
+    >
+      Loading...
+    </p>
     <p
       v-if="showError"
       class="container__explanation container__explanation--error"
@@ -122,6 +134,12 @@ export default defineComponent({
 
     &--error {
       background-color: #e74c3c;
+      padding: 0.25rem 1rem;
+      border-radius: 0.5rem;
+      color: #fff;
+    }
+    &--loading {
+      background-color: #3498db;
       padding: 0.25rem 1rem;
       border-radius: 0.5rem;
       color: #fff;
