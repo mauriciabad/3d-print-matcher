@@ -11,21 +11,22 @@ import models, { Model } from './data/models'
   printConsole(page)
   await page.setViewport({ width: 1024, height: 1024 })
 
-  for (const model of models) {
-    const pageHTML = fs
-      .readFileSync('./src/index.html', 'utf8')
-      .replace(
-        'const model = INJECTED_MODEL_DATA_GOES_HERE',
-        `const model = ${JSON.stringify(model)}`
-      )
+  const model = models[5]
+  // for (const model of models) {
+  const pageHTML = fs
+    .readFileSync('./src/index.html', 'utf8')
+    .replace(
+      'const model = INJECTED_MODEL_DATA_GOES_HERE',
+      `const model = ${JSON.stringify(model)}`
+    )
 
-    await page.setContent(pageHTML)
+  await page.setContent(pageHTML)
 
-    await page.screenshot({
-      path: screenshotPath(model),
-    })
-    console.log(`Created ${screenshotPath(model)}`)
-  }
+  await page.screenshot({
+    path: screenshotPath(model),
+  })
+  console.log(`Created ${screenshotPath(model)}`)
+  // }
 
   await browser.close()
 
