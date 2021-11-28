@@ -11,25 +11,25 @@ import models, { Model } from './data/models'
   printConsole(page)
   await page.setViewport({ width: 1024, height: 1024 })
 
-  const model = models[5]
-  // for (const model of models) {
-  // const pageHTML = fs
-  //   .readFileSync('./src/index.html', 'utf8')
-  //   .replace(
-  //     'const model = INJECTED_MODEL_DATA_GOES_HERE',
-  //     `const model = ${JSON.stringify(model)}`
-  //   )
+  for (const model of models) {
+    // const pageHTML = fs
+    //   .readFileSync('./src/index.html', 'utf8')
+    //   .replace(
+    //     'const model = INJECTED_MODEL_DATA_GOES_HERE',
+    //     `const model = ${JSON.stringify(model)}`
+    //   )
+    // await page.goto(`file://${__dirname}/pages/test.html`)
 
-  // await page.setContent(pageHTML)
+    // await page.setContent(pageHTML)
 
-  await page.goto(`http://localhost:5000`)
+    await page.goto(`http://localhost:5000`)
 
-  await wait(1000)
-  await page.screenshot({
-    path: screenshotPath(model),
-  })
-  console.log(`Created ${screenshotPath(model)}`)
-  // }
+    await wait(1000)
+    await page.screenshot({
+      path: screenshotPath(model),
+    })
+    console.log(`Created ${screenshotPath(model)}`)
+  }
 
   await browser.close()
 

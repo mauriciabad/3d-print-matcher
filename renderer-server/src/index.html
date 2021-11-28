@@ -24,7 +24,7 @@
       const model = INJECTED_MODEL_DATA_GOES_HERE || {
         name: 'Monkey',
         stlUrl: './assets/models/monkey.stl',
-        color: '#ff0000',
+        color: '#45474A',
       }
 
       let container
@@ -58,7 +58,7 @@
 
         loader.load(model.stlUrl, (geometry) => {
           const material = new THREE.MeshPhongMaterial({
-            color: 0xff5533,
+            color: new THREE.Color(model.color),
             specular: 0x111111,
             shininess: 200,
           })
