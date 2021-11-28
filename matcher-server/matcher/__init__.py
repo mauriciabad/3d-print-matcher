@@ -41,6 +41,7 @@ def create_print():
         file.save(file_path)
 
         cropped_file_path = os.path.join(app.config["CROPPED_UPLOAD_FOLDER"], filename)
+        print(str(file_path), str(cropped_file_path))
         process(str(file_path), str(cropped_file_path))
 
         render_files = [

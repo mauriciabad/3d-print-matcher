@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { Print } from '../api/types'
+import { MATCH_SERVER_BASE_URL } from '../constants'
 
 export default defineComponent({
   props: {
@@ -11,7 +12,9 @@ export default defineComponent({
   },
 
   setup() {
-    return {}
+    return {
+      MATCH_SERVER_BASE_URL,
+    }
   },
 })
 </script>
