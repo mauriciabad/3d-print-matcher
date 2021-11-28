@@ -35,8 +35,8 @@ export default <Model[]>[
     color: '#45474A',
   },
   {
-    name: 'tub',
-    stlUrl: './assets/models/tub.stl',
+    name: 'turbina',
+    stlUrl: './assets/models/turbina.stl',
     color: '#45474A',
   },
 ]

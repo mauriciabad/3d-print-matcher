@@ -21,10 +21,11 @@
 
       const INJECTED_MODEL_DATA_GOES_HERE = undefined
 
-      const model = INJECTED_MODEL_DATA_GOES_HERE || {
+      const modelData = INJECTED_MODEL_DATA_GOES_HERE || {
         name: 'Monkey',
         stlUrl: './assets/models/monkey.stl',
         color: '#45474A',
+        cameraLocation: { x: 0, y: 0, z: 0 },
       }
 
       let container
@@ -46,7 +47,11 @@
           1,
           15
         )
-        camera.position.set(0, 0, 10)
+        camera.position.set(
+          modelData.cameraLocation.x * 10,
+          modelData.cameraLocation.y * 10,
+          modelData.cameraLocation.z * 10
+        )
 
         const cameraTarget = new THREE.Vector3(0, 0, 0)
         camera.lookAt(cameraTarget)
@@ -56,9 +61,9 @@
 
         const loader = new STLLoader()
 
-        loader.load(model.stlUrl, (geometry) => {
+        loader.load(modelData.stlUrl, (geometry) => {
           const material = new THREE.MeshPhongMaterial({
-            color: new THREE.Color(model.color),
+            color: new THREE.Color(modelData.color),
             specular: 0x111111,
             shininess: 200,
           })
