@@ -16,7 +16,6 @@ init_app(app)
 def get_ext(filename):
     return filename.rsplit(".", 1)[1].lower()
 
-
 def allowed_file(filename):
     return "." in filename and get_ext(filename) in ["jpg", "jpeg", "png"]
 
@@ -36,11 +35,25 @@ def create_print():
         file_path = os.path.join(app.config["PHOTO_UPLOAD_FOLDER"], filename)
         file.save(file_path)
 
-        # TODO: Crop photo
         cropped_file_path = os.path.join(app.config["CROPPED_UPLOAD_FOLDER"], filename)
         process(str(file_path), str(cropped_file_path))
 
-        # query_db(f"INSERT INTO {app.config['PRINT_TABLE']} (picture_path) VALUES(?)", [filename])
+        # TODO: Compute similarity
+
         return "Success", 200
 
     return "File error", 400
+
+
+
+@app.route("/pieces", methods=["POST"])
+def create_piece():
+        model_path = request.json["modelPath"]
+        render_paths = request.json["renderPaths"]
+
+        query_db(f"INSERT INTO {app.config['PIECE_TABLE']} (model_path) VALUES(?)", [model_path])
+
+        for render_path in render_paths:
+            query_db(f"INSERT INTO {app.config['RENDER_TABLE']} (render_path) VALUES(?)", [render_path])
+
+        return "Success", 200

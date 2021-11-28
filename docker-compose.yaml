@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  matcher:
+    container_name: matcher
+    build: ./matcher-server/
+    environment:
+      DATABASE: db
+      PRINT_TABLE: print
+      PHOTO_UPLOAD_FOLDER: "./photos"
+      CROPPED_UPLOAD_FOLDER: "./cropped"
+      TIMEOUT: 90
+    volumes:
+      - ./photos/:/app/photos/
+      - ./cropped/:/app/cropped/
+    network_mode: host
+
+
