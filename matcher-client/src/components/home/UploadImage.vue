@@ -5,6 +5,14 @@ export default defineComponent({
   components: {},
 
   setup() {
+    function appHeight() {
+      const doc = document.documentElement
+      doc.style.setProperty('--vh', window.innerHeight * 0.01 + 'px')
+    }
+
+    window.addEventListener('resize', appHeight)
+    appHeight()
+
     return {}
   },
 })
@@ -12,14 +20,15 @@ export default defineComponent({
 
 <template>
   <div class="container">
-    <h1 class="container__title">Benvingut/da!</h1>
+    <h1 class="container__title">Buscador de peces</h1>
+
+    <div class="container__photos">
+      <img src="@/assets/3d-printer.png" alt="" class="image image--printer" />
+      <img src="@/assets/take-a-photo.png" alt="" class="image image--photo" />
+    </div>
 
     <div class="container__explanation">
-      <h3>Com usar la app?</h3>
-      <p>
-        Utilitza el botó afegir imatge d'una peça 3D per trobar una similitud
-        amb la resta de peçes!
-      </p>
+      <p>Fes una foto a una impressió 3D que vulguis identificar.</p>
     </div>
 
     <file-upload
@@ -31,7 +40,7 @@ export default defineComponent({
       @input-filter="inputFilter"
       class="container__button"
     >
-      Afegir imatge
+      Escanejar peça
     </file-upload>
   </div>
 </template>
@@ -42,46 +51,62 @@ export default defineComponent({
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
-  padding: 50px 10px;
+  padding: 1rem;
+  max-width: 600px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+
+  &__photos {
+    flex-grow: 1;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
 
   &__title {
-    margin-top: 0;
+    margin-top: 2rem;
     margin-bottom: 0;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 3rem;
   }
 
   &__explanation {
-    padding: 50px 10px;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin: 0 0 1rem;
   }
 
   &__button {
     text-decoration: none;
     padding: 15px;
-    width: 50%;
-    font-size: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1.2rem;
+    text-transform: uppercase;
     color: white;
     border-radius: 10px;
-    background: #2c3e50;
+    background: #2463eb;
     border: 1px solid transparent;
     cursor: pointer;
+    font-weight: 500;
 
     &:hover {
-      box-shadow: 4px 4px #0000008c;
-      color: black;
-      border: 1px solid #2c3e50;
-      background: transparent;
-
-      &:visited {
-        color: black;
-      }
+      background: #1e40b0;
     }
+  }
+}
 
-    &:visited {
-      color: white;
-    }
+.image {
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
 
-    @media (max-width: 900px) {
-      width: 80%;
-    }
+  &--photo {
+    margin-top: -35px;
   }
 }
 </style>

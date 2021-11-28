@@ -19,7 +19,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="home">
+  <div>
     <UploadImage @select="handleSelectImage" />
   </div>
 </template>
