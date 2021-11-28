@@ -20,7 +20,7 @@ export default defineComponent({
   <div class="print">
     <img
       class="print__image"
-      :src="value.imageUri"
+      :src="MATCH_SERVER_BASE_URL + value.imageUri"
       alt="Preview of the print"
       intrinsicsize="400 x 400"
     />
