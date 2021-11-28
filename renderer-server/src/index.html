@@ -9,6 +9,7 @@
     <style>
       body {
         margin: 0;
+        background: red;
       }
     </style>
   </head>
@@ -21,12 +22,10 @@
       const INJECTED_MODEL_DATA_GOES_HERE = undefined
 
       const model = INJECTED_MODEL_DATA_GOES_HERE || {
-        name: 'Trophy HackEps',
-        stlUrl: './assets/models/10-HackEps_Trofeu.stl',
-        color: '#00ff00',
+        name: 'Monkey',
+        stlUrl: './assets/models/monkey.stl',
+        color: '#ff0000',
       }
-
-      console.log(window.location)
 
       let container
 
@@ -66,7 +65,6 @@
           const mesh = new THREE.Mesh(geometry, material)
           mesh.geometry.center()
           mesh.geometry.computeBoundingBox()
-          console.log(mesh.geometry.boundingBox)
 
           const scale =
             5 /
@@ -75,7 +73,7 @@
               mesh.geometry.boundingBox.max.y,
               mesh.geometry.boundingBox.max.z
             )
-          console.log(scale)
+
           mesh.position.set(0, 0, 0)
           mesh.rotation.set(0, 0, 0)
           mesh.scale.set(scale, scale, scale)
