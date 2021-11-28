@@ -61,7 +61,7 @@ def create_print():
         min_dist, most_sim_render = min(diffs)
 
         return jsonify(
-            image_uri=f"/renders/{most_sim_render}",
+            imageUri=f"/renders/{most_sim_render}",
             name=most_sim_render.split("_")[0],
             customer="Jaimito",
             confidence=min_dist / max_dist,
