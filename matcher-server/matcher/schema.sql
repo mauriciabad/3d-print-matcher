@@ -4,12 +4,14 @@ DROP TABLE IF EXISTS render;
 
 CREATE TABLE piece (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  model_path TEXT UNIQUE NOT NULL,
-)
+  name TEXT UNIQUE NOT NULL,
+  customer TEXT NOT NULL,
+  model_path TEXT UNIQUE NOT NULL
+);
 
 CREATE TABLE render (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  model_path TEXT UNIQUE NOT NULL,
+  model_path TEXT NOT NULL,
   render_path TEXT UNIQUE NOT NULL,
   FOREIGN KEY(model_path) REFERENCES model(model_path)
-)
+);

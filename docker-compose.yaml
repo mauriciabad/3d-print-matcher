@@ -5,7 +5,8 @@ services:
     build: ./matcher-server/
     environment:
       DATABASE: db
-      PRINT_TABLE: print
+      PIECE_TABLE: piece
+      RENDER_TABLE: render
       PHOTO_UPLOAD_FOLDER: "./photos"
       CROPPED_UPLOAD_FOLDER: "./cropped"
       TIMEOUT: 90
