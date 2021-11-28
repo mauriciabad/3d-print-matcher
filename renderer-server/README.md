@@ -2,7 +2,7 @@
 
 The renderer is used to store `Models` and `Renders` of them, to then be used by the [Matcher](/matcher-server)).
 
-Run `npm i`, `npm start`, and the results will be in `out` folder.
+Run `npm i`, `npx serve src`, and in another console `npm start`, and the results will be in `out` folder.
 
 ## Entities and types (in typescript)
 

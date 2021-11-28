@@ -1,41 +1,41 @@
 export default <Model[]>[
   {
-    name: 'Trophy HackEps',
-    stlUrl: './assets/models/10-HackEps_Trofeu.stl',
+    name: 'pin',
+    stlUrl: './assets/models/pin.stl',
+    color: '#45474A',
+  },
+  {
+    name: 'botella',
+    stlUrl: './assets/models/botella.stl',
+    color: '#45474A',
+  },
+  {
+    name: 'trofeu',
+    stlUrl: './assets/models/trofeu.stl',
     color: '#00ff00',
   },
   {
-    name: 'Pin HackEps',
-    stlUrl: './assets/models/10-HackEps-Pin.stl',
+    name: 'caixa',
+    stlUrl: './assets/models/caixa.stl',
     color: '#45474A',
   },
   {
-    name: 'Caixa rep',
-    stlUrl: './assets/models/CAIXA_REP.stl',
-    color: '#45474A',
-  },
-  {
-    name: 'Centrador',
+    name: 'centrador',
     stlUrl: './assets/models/centrador.stl',
     color: '#45474A',
   },
   {
-    name: 'Cien malos',
-    stlUrl: './assets/models/Cien malos 0,7L_V00781_10.stl',
-    color: '#45474A',
-  },
-  {
-    name: 'Monkey',
+    name: 'monkey',
     stlUrl: './assets/models/monkey.stl',
     color: '#45474A',
   },
   {
-    name: 'Tube 3',
+    name: 'tub3',
     stlUrl: './assets/models/tub3.stl',
     color: '#45474A',
   },
   {
-    name: 'Tube',
+    name: 'tub',
     stlUrl: './assets/models/tub.stl',
     color: '#45474A',
   },
