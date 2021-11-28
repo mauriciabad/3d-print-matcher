@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 
 from background.main import process
 from matcher.database import init_app, query_db
+from matcher.matching import get_similarity
 
 app = Flask(__name__)
 app.config.from_object("matcher.config.Config")
@@ -42,17 +43,22 @@ def create_print():
         cropped_file_path = os.path.join(app.config["CROPPED_UPLOAD_FOLDER"], filename)
         process(str(file_path), str(cropped_file_path))
 
-        # TODO: Compute similarity
         render_files = [
-            os.path.join(app.config["RENDERS_FOLDER"], f)
+            f
             for f in listdir(app.config["RENDERS_FOLDER"])
             if isfile(os.path.join(app.config["RENDERS_FOLDER"], f))
         ]
-
-        render_path = render_files[0]
+        diffs = [
+            (get_similarity(os.path.join(app.config["RENDERS_FOLDER"], file), cropped_file_path), file) for file in render_files
+        ]
+        max_dist, _ = max(diffs)
+        min_dist, most_sim_render = min(diffs)
 
         return jsonify(
-            image_uri=f"/renders/{render_path}", piece=render_path.split("_")[0], name="Jaimito"
+            image_uri=f"/renders/{most_sim_render}",
+            name=most_sim_render.split("_")[0],
+            customer="Jaimito",
+            confidence=min_dist / max_dist,
         )
 
     return "File error", 400
