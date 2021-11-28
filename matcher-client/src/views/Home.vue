@@ -1,15 +1,18 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import api from '../api'
+import { Print } from '../api/types'
+import PrintPreview from '../components/PrintPreview.vue'
 
 export default defineComponent({
-  components: {},
+  components: { PrintPreview },
 
   setup() {
     const showError = ref(false)
+    const print = ref<Print | null>(null)
 
     async function handleImageSelected(event: InputEvent) {
-      showError.value = false
+      clearScreen()
 
       const image = (event.target as HTMLInputElement).files?.[0]
       if (!image) {
@@ -21,16 +24,21 @@ export default defineComponent({
       formData.append('image', image)
 
       try {
-        const result = await api.findMatch(formData)
-        console.log(result) // TODO: continue here
+        print.value = await api.findMatch(formData)
       } catch (error) {
         showError.value = true
       }
     }
 
+    function clearScreen() {
+      showError.value = false
+      print.value = null
+    }
+
     return {
       handleImageSelected,
       showError,
+      print,
     }
   },
 })
@@ -38,9 +46,15 @@ export default defineComponent({
 
 <template>
   <div class="container">
-    <h1 class="container__title">Buscador de peces</h1>
+    <h1 class="container__title">
+      <template v-if="print">Peça més semblant</template>
+      <template v-else>Buscador de peces</template>
+    </h1>
 
-    <div class="container__photos">
+    <div v-if="print" class="container__print">
+      <print-preview :value="print" />
+    </div>
+    <div v-else class="container__photos">
       <img src="@/assets/3d-printer.png" alt="" class="image image--printer" />
       <img src="@/assets/take-a-photo.png" alt="" class="image image--photo" />
     </div>
@@ -56,7 +70,9 @@ export default defineComponent({
     </p>
 
     <label for="file" class="button">
-      Escanejar peça
+      <template v-if="print">Torna a escanejar</template>
+      <template v-else>Escanejar peça</template>
+
       <input
         class="button__input"
         type="file"
@@ -83,7 +99,8 @@ export default defineComponent({
   height: 100vh; /* Fallback for browsers that do not support Custom Properties */
   height: calc(var(--vh, 1vh) * 100);
 
-  &__photos {
+  &__photos,
+  &__print {
     flex-grow: 1;
     justify-content: center;
     display: flex;
