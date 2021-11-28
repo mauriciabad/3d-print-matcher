@@ -1,19 +1,45 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
+import api from '../../api'
+
+function appHeight() {
+  const doc = document.documentElement
+  doc.style.setProperty('--vh', window.innerHeight * 0.01 + 'px')
+}
 
 export default defineComponent({
   components: {},
 
   setup() {
-    function appHeight() {
-      const doc = document.documentElement
-      doc.style.setProperty('--vh', window.innerHeight * 0.01 + 'px')
-    }
+    const showError = ref(false)
 
     window.addEventListener('resize', appHeight)
     appHeight()
 
-    return {}
+    async function handleImageSelected(event: InputEvent) {
+      showError.value = false
+
+      const image = (event.target as HTMLInputElement).files[0]
+      if (!image) {
+        showError.value = true
+        return
+      }
+
+      const formData = new FormData()
+      formData.append('image', image)
+
+      try {
+        const result = await api.findMatch(formData)
+        console.log(result) // TODO: continue here
+      } catch (error) {
+        showError.value = true
+      }
+    }
+
+    return {
+      handleImageSelected,
+      showError,
+    }
   },
 })
 </script>
@@ -27,11 +53,29 @@ export default defineComponent({
       <img src="@/assets/take-a-photo.png" alt="" class="image image--photo" />
     </div>
 
-    <div class="container__explanation">
-      <p>Fes una foto a una impressió 3D que vulguis identificar.</p>
-    </div>
+    <p
+      v-if="showError"
+      class="container__explanation container__explanation--error"
+    >
+      ⚠️ Hi ha agut un error, torna-ho a intentar ⚠️
+    </p>
+    <p class="container__explanation">
+      Fes una foto a una impressió 3D que vulguis identificar.
+    </p>
 
-    <file-upload
+    <label for="file" class="button">
+      Escanejar peça
+      <input
+        class="button__input"
+        type="file"
+        id="file"
+        name="image"
+        accept="image/png, image/jpeg"
+        required
+        @input="handleImageSelected"
+    /></label>
+
+    <!-- <file-upload
       ref="upload"
       v-model="files"
       post-action="/post.method"
@@ -41,7 +85,7 @@ export default defineComponent({
       class="container__button"
     >
       Escanejar peça
-    </file-upload>
+    </file-upload> -->
   </div>
 </template>
 
@@ -78,25 +122,43 @@ export default defineComponent({
     font-size: 1.2rem;
     line-height: 1.6;
     margin: 0 0 1rem;
+
+    &--error {
+      background-color: #e74c3c;
+      padding: 0.25rem 1rem;
+      border-radius: 0.5rem;
+      color: #fff;
+    }
+  }
+}
+
+.button {
+  text-decoration: none;
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: white;
+  border-radius: 10px;
+  background: #2463eb;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+
+  &:hover {
+    background: #1e40b0;
   }
 
-  &__button {
-    text-decoration: none;
-    padding: 15px;
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    color: white;
-    border-radius: 10px;
-    background: #2463eb;
-    border: 1px solid transparent;
-    cursor: pointer;
-    font-weight: 500;
-
-    &:hover {
-      background: #1e40b0;
-    }
+  &__input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    pointer-events: none;
   }
 }
 
