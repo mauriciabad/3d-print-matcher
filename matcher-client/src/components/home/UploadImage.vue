@@ -74,18 +74,6 @@ export default defineComponent({
         required
         @input="handleImageSelected"
     /></label>
-
-    <!-- <file-upload
-      ref="upload"
-      v-model="files"
-      post-action="/post.method"
-      put-action="/put.method"
-      @input-file="inputFile"
-      @input-filter="inputFilter"
-      class="container__button"
-    >
-      Escanejar peça
-    </file-upload> -->
   </div>
 </template>
 
