@@ -22,9 +22,17 @@ export default defineComponent({
       </p>
     </div>
 
-    <router-link to="/result" class="container__button">
+    <file-upload
+      ref="upload"
+      v-model="files"
+      post-action="/post.method"
+      put-action="/put.method"
+      @input-file="inputFile"
+      @input-filter="inputFilter"
+      class="container__button"
+    >
       Afegir imatge
-    </router-link>
+    </file-upload>
   </div>
 </template>
 
@@ -34,7 +42,7 @@ export default defineComponent({
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
-  padding: 50px 0;
+  padding: 50px 10px;
 
   &__title {
     margin-top: 0;
@@ -51,7 +59,7 @@ export default defineComponent({
     width: 50%;
     font-size: 20px;
     color: white;
-    border-radius: 15px;
+    border-radius: 10px;
     background: #2c3e50;
     border: 1px solid transparent;
     cursor: pointer;
@@ -72,7 +80,7 @@ export default defineComponent({
     }
 
     @media (max-width: 900px) {
-      width: 100%;
+      width: 80%;
     }
   }
 }
