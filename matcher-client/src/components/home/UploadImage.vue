@@ -19,7 +19,7 @@ export default defineComponent({
     async function handleImageSelected(event: InputEvent) {
       showError.value = false
 
-      const image = (event.target as HTMLInputElement).files[0]
+      const image = (event.target as HTMLInputElement).files?.[0]
       if (!image) {
         showError.value = true
         return
