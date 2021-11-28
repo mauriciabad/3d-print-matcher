@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>three.js webgl - STL</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <link
-      type="text/css"
-      rel="stylesheet"
-      href="https://threejs.org/examples/main.css"
-    />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
   </head>
   <body>
     <script type="module">
@@ -19,32 +18,21 @@
 
       import { STLLoader } from 'https://threejs.org/examples/jsm/loaders/STLLoader.js'
 
-      const models = [
-        {
-          id: 1,
-          name: 'Stanford bunny',
-          stlUrl:
-            'https://threejs.org/examples/models/stl/ascii/slotted_disk.stl',
-          color: '#ff0000',
-        },
-        {
-          id: 2,
-          name: 'Eiffel-tower',
-          stlUrl: 'https://ozeki.hu/attachments/116/Eiffel_tower_sample.STL',
-          color: '#0000ff',
-        },
-        {
-          id: 3,
-          name: 'Menger sponge',
-          stlUrl: 'https://ozeki.hu/attachments/116/Menger_sponge_sample.stl',
-          color: '#ffffff',
-        },
-      ]
-      const model = models[0]
+      const INJECTED_MODEL_DATA_GOES_HERE = undefined
+
+      const model = INJECTED_MODEL_DATA_GOES_HERE || {
+        name: 'Trophy HackEps',
+        stlUrl: './assets/models/10-HackEps_Trofeu.stl',
+        color: '#00ff00',
+      }
+
+      console.log(window.location)
 
       let container
 
-      let camera, scene, renderer
+      let camera
+      let scene
+      let renderer
 
       init()
       render()
@@ -54,12 +42,12 @@
         document.body.appendChild(container)
 
         camera = new THREE.PerspectiveCamera(
-          35,
+          100,
           window.innerWidth / window.innerHeight,
           1,
           15
         )
-        camera.position.set(3, 0.15, 3)
+        camera.position.set(0, 0, 10)
 
         const cameraTarget = new THREE.Vector3(0, 0, 0)
         camera.lookAt(cameraTarget)
@@ -69,29 +57,37 @@
 
         const loader = new STLLoader()
 
-        loader.load(
-          'https://threejs.org/examples/models/stl/ascii/slotted_disk.stl',
-          (geometry) => {
-            const material = new THREE.MeshPhongMaterial({
-              color: 0xff5533,
-              specular: 0x111111,
-              shininess: 200,
-            })
-            const mesh = new THREE.Mesh(geometry, material)
+        loader.load(model.stlUrl, (geometry) => {
+          const material = new THREE.MeshPhongMaterial({
+            color: 0xff5533,
+            specular: 0x111111,
+            shininess: 200,
+          })
+          const mesh = new THREE.Mesh(geometry, material)
+          mesh.geometry.center()
+          mesh.geometry.computeBoundingBox()
+          console.log(mesh.geometry.boundingBox)
 
-            mesh.position.set(0, 0, 0)
-            mesh.rotation.set(0, 0, 0)
-            mesh.scale.set(1, 1, 1)
+          const scale =
+            5 /
+            Math.max(
+              mesh.geometry.boundingBox.max.x,
+              mesh.geometry.boundingBox.max.y,
+              mesh.geometry.boundingBox.max.z
+            )
+          console.log(scale)
+          mesh.position.set(0, 0, 0)
+          mesh.rotation.set(0, 0, 0)
+          mesh.scale.set(scale, scale, scale)
 
-            mesh.castShadow = true
-            mesh.receiveShadow = true
+          mesh.castShadow = true
+          mesh.receiveShadow = true
 
-            scene.add(mesh)
-            // scene.add(new THREE.BoxHelper(mesh, 0x000000))
+          scene.add(mesh)
+          // scene.add(new THREE.BoxHelper(mesh, 0x000000))
 
-            render()
-          }
-        )
+          render()
+        })
 
         // Lights
         scene.add(new THREE.HemisphereLight(0x443333, 0x111122))

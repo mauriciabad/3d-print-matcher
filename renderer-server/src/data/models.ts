@@ -1,26 +1,47 @@
 export default <Model[]>[
   {
-    id: 1,
-    name: 'Stanford bunny',
-    stlUrl: 'https://ozeki.hu/attachments/16/Stanford_Bunny_sample.stl',
+    name: 'Trophy HackEps',
+    stlUrl: './assets/models/10-HackEps_Trofeu.stl',
+    color: '#00ff00',
+  },
+  {
+    name: 'Pin HackEps',
+    stlUrl: './assets/models/10-HackEps-Pin.stl',
     color: '#ff0000',
   },
   {
-    id: 2,
-    name: 'Eiffel-tower',
-    stlUrl: 'https://ozeki.hu/attachments/116/Eiffel_tower_sample.STL',
-    color: '#0000ff',
+    name: 'Caixa rep',
+    stlUrl: './assets/models/CAIXA_REP.stl',
+    color: '#ff0000',
   },
   {
-    id: 3,
-    name: 'Menger sponge',
-    stlUrl: 'https://ozeki.hu/attachments/116/Menger_sponge_sample.stl',
-    color: '#ffffff',
+    name: 'Centrador',
+    stlUrl: './assets/models/centrador.stl',
+    color: '#ff0000',
+  },
+  {
+    name: 'Cien malos',
+    stlUrl: './assets/models/Cien malos 0,7L_V00781_10.stl',
+    color: '#ff0000',
+  },
+  {
+    name: 'Monkey',
+    stlUrl: './assets/models/monkey.stl',
+    color: '#ff0000',
+  },
+  {
+    name: 'Tube 3',
+    stlUrl: './assets/models/tub3.stl',
+    color: '#ff0000',
+  },
+  {
+    name: 'Tube',
+    stlUrl: './assets/models/tub.stl',
+    color: '#ff0000',
   },
 ]
 
-interface Model {
-  id: number
+export interface Model {
   name: string
   stlUrl: string
   color: string
